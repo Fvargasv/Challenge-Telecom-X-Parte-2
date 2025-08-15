@@ -55,19 +55,19 @@ El objetivo es **identificar a clientes con alto riesgo de abandono** para imple
 
 ## Bibliotecas Usadas
 
-import pandas as pd
-from sklearn.compose import make_column_transformer
-from sklearn.preprocessing import OneHotEncoder, MinMaxScaler
-import seaborn as sns
-from imblearn.over_sampling import SMOTE
-import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split, KFold, cross_validate, GridSearchCV
-from sklearn.dummy import DummyClassifier
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.inspection import permutation_importance
+- import pandas as pd
+- from sklearn.compose import make_column_transformer
+- from sklearn.preprocessing import OneHotEncoder, MinMaxScaler
+- import seaborn as sns
+- from imblearn.over_sampling import SMOTE
+- import matplotlib.pyplot as plt
+- from sklearn.model_selection import train_test_split, KFold, cross_validate, GridSearchCV
+- from sklearn.dummy import DummyClassifier
+- from sklearn.tree import DecisionTreeClassifier
+- from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+- from sklearn.ensemble import RandomForestRegressor
+- from sklearn.neighbors import KNeighborsClassifier
+- from sklearn.inspection import permutation_importance
 ---
 ## Cargar los datos
 
@@ -86,6 +86,6 @@ from sklearn.inspection import permutation_importance
 5. Selección y justificación del modelo final.
 ---
 
-##📬 Contacto
+## 📬 Contacto
 
 Para consultas o sugerencias, abrir un issue en el repositorio o contactar a Felipe Vargas

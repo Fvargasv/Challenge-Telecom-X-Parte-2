@@ -1,56 +1,48 @@
-# Challenge-Telecom-X-Parte-2
-Desafío Challenge X Alura Latam Parte 2
 # 📊 Telecom X – Parte 2: Predicción de Churn de Clientes
 
 ## 📌 Propósito del Análisis
 Este proyecto tiene como objetivo principal **predecir la cancelación (churn) de clientes** de la compañía de telecomunicaciones **Telecom X**, utilizando información relevante sobre sus características demográficas, servicios contratados, patrones de uso y facturación.  
-El fin último es **identificar a clientes con alto riesgo de abandono** para implementar estrategias de retención más efectivas y enfocadas.
+El objetivo es **identificar a clientes con alto riesgo de abandono** para implementar estrategias de retención más efectivas y enfocadas.
 
 ---
 
 ## 📂 Estructura del Proyecto
-Telecom_X_Parte_2/
-│
-├── data/
-│ ├── datos_tratados.csv # Dataset final después de limpieza y preprocesamiento
-│
-├── notebooks/
-│ ├── TelecomX_Churn_Parte2.ipynb # Cuaderno principal de análisis y modelado
-│
-├── visualizations/
-│ ├── boxplot_tenure_churn.png
-│ ├── scatter_tenure_charges.png
-│ ├── matriz_confusion_knn.png
-│ ├── matriz_confusion_decisiontree.png
-│
-├── README.md # Este archivo
 
-yaml
-Copiar
-Editar
+### 1. Preparación de los datos
+### 2. Correlación y Selección de Variables
+### 3. Modelado predictivo
+### 4. Interpretación y Conclusiones
 
 ---
-
+## 📥 Archivos y Descarga
+- **Dataset:** `datos_telecomx_parte2.csv` disponible en el repositorio de GitHub.  
+  Debe descargarse para ejecutar el análisis.
+- **Notebook:** `Telecom_X_parte_2.ipynb` también disponible en el repositorio.  
+  Se recomienda abrirlo en **Google Colab** para su ejecución, cargando previamente el archivo CSV.
+---
 ## 🛠️ Preparación de los Datos
 
 ### 1. Clasificación de Variables
-- **Categóricas:** Variables como género, tipo de contrato, tipo de servicio de internet, método de pago, etc.  
-- **Numéricas:** Tenure (meses de permanencia), Charges_Total (cargos totales), Charges_Dayly (cargos diarios), entre otras.
+- **Categóricas:** género, tipo de contrato, tipo de servicio de internet, método de pago, etc.  
+- **Numéricas:** `customer_tenure`, `Charges_Total`, `Charges_Dayly`, entre otras.
 
 ### 2. Codificación y Normalización
-- **Codificación:** Variables categóricas transformadas con *One-Hot Encoding*.  
-- **Normalización:** Variables numéricas normalizadas para modelos sensibles a la escala como KNN.
+- **Codificación:** Variables categóricas transformadas con *One-Hot Encoding* mediante `make_column_transformer`.
+- **Normalización:** Variables numéricas escaladas con **MinMaxScaler** para modelos como KNN.
 
 ### 3. Separación de Datos
-- **Entrenamiento y prueba:** División del dataset en 80% entrenamiento y 20% prueba para validar la capacidad de generalización de los modelos.
+- División del dataset en **70% entrenamiento** y **30% prueba** usando `train_test_split`.
+
+### 4. Balanceo de Clases
+- Se aplicó **SMOTE** para corregir el desbalance de la variable `Churn` (27% churn vs. 73% no churn).
 
 ---
 
 ## 📈 Justificación de Decisiones de Modelado
-- **Selección de características:** Se realizó un análisis de *Permutation Importance* para el modelo KNN, conservando las 9 variables con mayor relevancia.
-- **Balanceo de clases:** Dado que solo el 27% de clientes corresponde a casos de churn, se aplicó **SMOTE** para balancear las clases y mejorar la detección de la clase minoritaria.
-- **Optimización de hiperparámetros:** Para KNN se utilizó `GridSearchCV` con optimización del **recall**, priorizando la detección de clientes que efectivamente se irán.
-- **Comparación de modelos:** Se evaluaron KNN y DecisionTree frente a un modelo baseline, analizando métricas como accuracy, precisión, recall, F1-score y matrices de confusión.
+- **Selección de características:** *Permutation Importance* identificó las 9 variables más relevantes para el modelo KNN.
+- **Optimización:** `GridSearchCV` se utilizó para maximizar el **recall**, priorizando la detección de clientes que efectivamente abandonarán.
+- **Comparación de modelos:** Se evaluaron **DecisionTree** y **KNN** frente a un baseline (DummyClassifier), considerando métricas como accuracy, precisión, recall, F1-score y matrices de confusión.
+- **Elección del modelo:** Se seleccionó **KNN optimizado para recall** por su mejor capacidad para detectar churn real.
 
 ---
 
@@ -61,26 +53,39 @@ Editar
 
 ---
 
-## 🚀 Instrucciones de Ejecución
+## Bibliotecas Usadas
 
-### 1. Requisitos Previos
-Instalar las bibliotecas necesarias:
-```bash
-pip install pandas numpy matplotlib seaborn scikit-learn imbalanced-learn
-2. Cargar los Datos
-Colocar el archivo datos_tratados.csv en la carpeta data/.
+import pandas as pd
+from sklearn.compose import make_column_transformer
+from sklearn.preprocessing import OneHotEncoder, MinMaxScaler
+import seaborn as sns
+from imblearn.over_sampling import SMOTE
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split, KFold, cross_validate, GridSearchCV
+from sklearn.dummy import DummyClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.inspection import permutation_importance
+---
+## Cargar los datos
 
-3. Ejecutar el Cuaderno
-Abrir el archivo TelecomX_Churn_Parte2.ipynb y ejecutar las celdas en orden.
-El cuaderno contiene:
+1. Descargar datos_telecomx_parte2.csv desde el repositorio.
+2. Abrir el notebook Telecom_X_parte_2.ipynb en Google Colab.
+3. Subir el archivo CSV a Colab o montarlo desde Google Drive.
 
-Limpieza y preprocesamiento de datos.
+---
 
-Análisis exploratorio (EDA).
+## Ejecutar el Notebook
 
-Entrenamiento y evaluación de modelos (DecisionTree y KNN).
+1. Ejecutar todas las celdas en orden. El notebook incluye:
+2. Preprocesamiento de datos.
+3. Análisis exploratorio (EDA).
+4. Entrenamiento y evaluación de modelos.
+5. Selección y justificación del modelo final.
+---
 
-Selección del modelo final (KNN optimizado para recall).
+##📬 Contacto
 
-📬 Contacto
-Si tienes preguntas o sugerencias sobre este proyecto, no dudes en abrir un issue o enviar un mensaje.
+Para consultas o sugerencias, abrir un issue en el repositorio o contactar a Felipe Vargas
